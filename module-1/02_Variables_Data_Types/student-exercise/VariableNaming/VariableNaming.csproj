@@ -5,4 +5,8 @@
     <TargetFramework>netcoreapp2.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Include="C:\Users\Student\workspace\augustbabington-c\module-1\02_Variables_Data_Types\student-exercise\variable-and-datatypes-exercise.txt" Link="variable-and-datatypes-exercise.txt" />
+  </ItemGroup>
+
 </Project>
