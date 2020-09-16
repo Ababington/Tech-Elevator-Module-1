@@ -16,7 +16,12 @@ namespace Exercises
          */
         public int SumDouble(int a, int b)
         {
-            return 0;
+            int totalSum = a + b;
+            if (a == b)
+            {
+                totalSum = totalSum * 2;
+            }
+            return totalSum;
         }
     }
 }

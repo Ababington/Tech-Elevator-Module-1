@@ -16,7 +16,9 @@ namespace Exercises
         */
         public bool Makes10(int a, int b)
         {
-            return false;
+            int sum = a + b;
+
+            return (a == 10 || b == 10 || sum == 10);
         }
 
     }

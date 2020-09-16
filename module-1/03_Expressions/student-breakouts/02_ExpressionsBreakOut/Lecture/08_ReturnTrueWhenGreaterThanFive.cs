@@ -13,15 +13,15 @@ namespace Lecture
             greater than 5 and returns true if it is.
             TOPIC: Comparison Operators & Conditional Logic
         */
-        public bool ReturnTrueWhenGreaterThanFive(int number)
+        public bool ReturnTrueWhenGreaterThanFive(int number = 6)
         {
             if (number > 5)
             {
-
+                return true;
             }
             else
             {
-
+                return false;
             }
             return false;
         }

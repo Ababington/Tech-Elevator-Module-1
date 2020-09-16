@@ -12,9 +12,10 @@ namespace Lecture
          4. This method currently returns an int. Change it so that it returns a double.
             TOPIC: Return Types
          */
-        public int ReturnDoubleOfTwo()
+        public double ReturnDoubleOfTwo()
         {
-            return 2;
+            double number = 2.0;
+            return number;
         }
     }
 }
