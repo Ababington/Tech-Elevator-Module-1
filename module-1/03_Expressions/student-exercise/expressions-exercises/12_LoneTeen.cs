@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -17,8 +18,26 @@ namespace Exercises
         */
         public bool LoneTeen(int a, int b)
         {
-            return false;
-        }
+            if ((a >= 13 && a <= 19) && (b >= 13 && b <= 19))
+            {
 
+                return false;
+            }
+
+
+            return ((a >= 13 && a <= 19) || (b >= 13 && b <= 19));
+        }
     }
 }
+    
+
+            
+        
+        
+
+
+
+
+
+
+
