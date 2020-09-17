@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -19,8 +20,16 @@ namespace Exercises
          */
         public bool InOrderEqual(int a, int b, int c, bool equalOk)
         {
+            if (equalOk && b - a >= 0 && c - b >= 0)
+            {
+                return true;
+            }
+            if (b - a > 0 && c - b > 0)
+            {
+                return true;
+            }
             return false;
-        }
 
+        }
     }
 }
