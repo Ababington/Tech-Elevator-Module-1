@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
+using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -17,8 +19,22 @@ namespace Exercises
          */
         public bool CommonEnd(int[] a, int[] b)
         {
-            return false;
-        }
 
+
+            if (b[b.Length - 1] == a[a.Length-1] || b[0] == a[0])
+            {
+                return true;
+            }
+            return false;
+
+            
+            }
+        }
     }
-}
+
+        
+
+    
+
+
+
