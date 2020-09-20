@@ -8,11 +8,11 @@ namespace TempConvert
         {
 
 
-            Console.WriteLine("Please enter temperature: ");
+            Console.Write("Please enter temperature: ");
             string chooseTemp = Console.ReadLine();
             double tempNumber = double.Parse(chooseTemp);
 
-            Console.WriteLine("Is the temperature in (C)elsius, or (F)ahrenheit?: ");
+            Console.Write("Is the temperature in (C)elsius, or (F)ahrenheit?: ");
             string tempChoice = Console.ReadLine();
 
           
@@ -20,7 +20,7 @@ namespace TempConvert
             switch (tempChoice)
             {
                 case "C":
-                    Console.WriteLine((tempNumber * 1.8) + 32 + "F " + "is " + tempNumber + "C");
+                    Console.WriteLine(tempNumber + "C " + "is " + (tempNumber * 1.8) + 32 + "F");
                     break;
 
                 case "F":
