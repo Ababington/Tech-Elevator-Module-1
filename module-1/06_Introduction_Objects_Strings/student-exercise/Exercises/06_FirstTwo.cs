@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,7 +19,15 @@ namespace Exercises
          */
         public string FirstTwo(string str)
         {
-            return null;
+
+            
+            if (str.Length < 2)
+                return str;
+
+            return str.Substring(0, 2);
+
+
         }
     }
 }
+

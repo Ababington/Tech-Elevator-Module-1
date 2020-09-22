@@ -17,7 +17,13 @@ namespace Exercises
          */
         public string Right2(string str)
         {
-            return null;
+            string right = str.Substring(str.Length - 2);
+            string first = str.Substring(0, str.Length - 2);
+
+            if (str.Length <= 2)
+                return str;
+            
+            return right + first;
         }
     }
 }

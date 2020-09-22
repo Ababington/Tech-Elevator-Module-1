@@ -27,7 +27,7 @@ namespace DiscountCalculator
                 decimal amountOff = price * discount;
                 decimal salePrice = price - amountOff;
                 // wrote them to the screen.
-                Console.WriteLine($"Original Price: {price:C2} | Sale Price: {salePrice:C2}");
+                Console.WriteLine($"{price} lbs.on Earth, is {salePrice} lbs.on Mars.");
 
             }
         }

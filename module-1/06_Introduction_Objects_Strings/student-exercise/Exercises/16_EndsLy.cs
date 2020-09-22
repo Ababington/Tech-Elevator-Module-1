@@ -16,7 +16,19 @@ namespace Exercises
          */
         public bool EndsLy(string str)
         {
-            return false;
+
+
+            bool containsLy = str.Contains("ly", StringComparison.InvariantCultureIgnoreCase);
+           
+            if (str.EndsWith("ly"))
+            {
+                return true;
+            }
+            
+            {
+                return false;
+            }
+               
         }
     }
 }

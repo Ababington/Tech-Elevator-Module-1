@@ -17,7 +17,19 @@ namespace Exercises
          */
         public string MiddleTwo(string str)
         {
-            return null;
+
+            if (str.Length % 2 == 0)
+            {
+
+                string firstLast = str.Substring(0, str.Length / 2);
+                string lastHalf = str.Substring(str.Length / 2);
+                string removedFirst = firstLast.Substring(firstLast.Length - 1);
+                string removedLast = lastHalf.Substring(0, 1);
+
+                return removedFirst+ removedLast;
+            }
+            return "";
+            
         }
     }
 }

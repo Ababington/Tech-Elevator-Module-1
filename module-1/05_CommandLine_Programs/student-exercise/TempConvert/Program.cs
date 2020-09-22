@@ -15,7 +15,7 @@ namespace TempConvert
             Console.Write("Is the temperature in (C)elsius, or (F)ahrenheit?: ");
             string tempChoice = Console.ReadLine();
 
-          
+
 
             switch (tempChoice)
             {

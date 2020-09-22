@@ -17,9 +17,16 @@ namespace Exercises
          MakeOutWord("[[]]", "word") → "[[word]]"
          */
         public string MakeOutWord(string outword, string word)
-        {
 
-            return null;
+
+        {
+            
+            string firstTwoCharacters = outword.Substring(0,2);
+            string lastTwoCharacters = outword.Substring(2,2);
+            string outWord = firstTwoCharacters + word + lastTwoCharacters;
+
+
+            return outWord;
         }
     }
 }

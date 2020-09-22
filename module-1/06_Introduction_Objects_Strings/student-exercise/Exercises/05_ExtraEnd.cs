@@ -17,7 +17,9 @@ namespace Exercises
          */
         public string ExtraEnd(string str)
         {
-            return null;
+            int word = str.Length;
+            return str.Substring(word - 2) + str.Substring(word - 2)
+            + str.Substring(word - 2);
         }
     }
 }

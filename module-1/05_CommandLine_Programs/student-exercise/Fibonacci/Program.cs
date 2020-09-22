@@ -11,31 +11,27 @@ namespace Fibonacci
         {
 
 
+            int numberOne = 0;
+            int numberTwo = 1;
+            int numberThree;
 
-            Console.WriteLine("Please enter degrees: ");
-            string chooseTemp = Console.ReadLine();
-            double tempNumber = double.Parse(chooseTemp);
 
-            Console.Write("Is the temperature in (C)elsius, or (F)ahrenheit?: ");
-            string tempChoice = Console.ReadLine();
-
-            Console.WriteLine("Converted Temperature: ");
-            string result = Console.ReadLine();
-            double resultTemp = double.Parse(result);
-
-            if (tempChoice == "C")
+            Console.Write("Please enter the Fibonacci number: ");
+            int num = int.Parse(Console.ReadLine());
+            Console.Write(numberOne + " " + numberTwo + " ");
+            for(int i = 1; i <  num; i++)
             {
-                resultTemp = (tempNumber * 1.8) + 32;
+                numberThree = numberOne + numberTwo;
+                Console.Write(numberThree + " ");
+                numberOne = numberTwo;
+                numberTwo = numberThree;
             }
+            Console.Read();
 
-            if (tempChoice == "F")
-            {
-                resultTemp = ((tempNumber - 32) / 1.8);
-            }
-            Console.WriteLine(resultTemp);
         }
     }
 }
+
 
 
 
