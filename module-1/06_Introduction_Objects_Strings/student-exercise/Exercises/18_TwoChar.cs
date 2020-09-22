@@ -18,13 +18,17 @@ namespace Exercises
          */
         public string TwoChar(string str, int index)
         {
-            if (index <= str.Length-2 && index >= 0)
-            
-                return str.Substring(index + 2);
-            
-                return str.Substring(0, 2);
+            if (index + 2 > str.Length && index >= 0)
+            {
 
-        
+                return str.Substring(0, 2);
+            }
+            else
+            {
+                return str.Substring(index, 2);
+            }
+
         }
+        
     }
 }
