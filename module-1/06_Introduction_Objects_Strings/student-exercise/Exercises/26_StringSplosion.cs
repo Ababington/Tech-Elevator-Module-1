@@ -16,7 +16,13 @@ namespace Exercises
          */
         public string StringSplosion(string str)
         {
-            return null;
+            string tenet = "";
+
+                for (int i = 0; i < str.Length + 1; i++)
+            {
+                tenet += str.Substring(0, i);
+            }
+            return tenet;
         }
     }
 }

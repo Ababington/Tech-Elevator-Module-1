@@ -16,7 +16,16 @@ namespace Exercises
          */
         public string AltPairs(string str)
         {
-            return null;
+            string tenet = "";
+
+            for (int i = 0; i < str.Length; i++)
+            {
+                tenet += str.Substring(i, i + 1);
+
+                if (i > 0 && str.IndexOf(str.Substring(i, i + 1)) % 2 != 0) i += 2;
+            }
+
+            return tenet;
         }
     }
 }
