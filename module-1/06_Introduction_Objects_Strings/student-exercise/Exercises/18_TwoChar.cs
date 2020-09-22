@@ -20,7 +20,7 @@ namespace Exercises
         {
             if (index + 2 > str.Length || index < 0)
             {
-
+                
                 return str.Substring(0, 2);
             }
             else

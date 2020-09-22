@@ -16,7 +16,30 @@ namespace Exercises
          */
         public bool DoubleX(string str)
         {
+            int countOfXs = str.IndexOf("x");
+            
+            bool containsXx = str.Contains("xx", StringComparison.InvariantCultureIgnoreCase);
+            if (containsXx)
+            {
+
+
+                if (countOfXs < str.Length - 1 && str[countOfXs + 1] == 'x')
+                {
+
+                    return true;
+                }
+                else
+               
+                {
+                    return false;
+                }
+            }
             return false;
         }
+
+
     }
 }
+
+
+

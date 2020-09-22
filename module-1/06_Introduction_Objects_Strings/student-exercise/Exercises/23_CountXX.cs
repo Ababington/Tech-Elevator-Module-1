@@ -18,7 +18,7 @@ namespace Exercises
         {
             int countOfXs = 0;
             bool containsXx = str.Contains("xx", StringComparison.InvariantCultureIgnoreCase);
-            if(containsXx)
+            if (containsXx)
             {
                 
                 for(int i = 0; i < str.Length-1; i++)
