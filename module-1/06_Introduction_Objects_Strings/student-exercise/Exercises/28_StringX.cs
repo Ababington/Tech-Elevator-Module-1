@@ -18,14 +18,19 @@ namespace Exercises
         public string StringX(string str)
         {
             string result = "";
-            for (int i = 0; i < str.Length; i++)
+
+            if (str.Length > 1)
             {
-                if (!(i > 0 && i < (str.Length - 1) && str.Substring(i, i + 1).Equals('x')))
+
+                for (int i = 0; i < str.Length; i++)
                 {
-                    result = result + str.Substring(i, i + 1); 
+                    if (!(i > 0 && i < (str.Length - 1) && str.Substring(i, i + 1).Equals('x')))
+                    {
+                        result = result + str.Substring(i, i + 1);
+                    }
                 }
+                return result;
             }
-            return result;
         }
     }
 }
