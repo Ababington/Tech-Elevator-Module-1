@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -18,8 +19,24 @@ namespace Exercises
          */
         public List<string> ReverseList(List<string> objectList)
         {
-            return null;
-        }
 
+            Stack<string> reverseList = new Stack<string>(objectList);
+            List<string> pop = new List<string>();
+
+            for (int i = 0; i < objectList.Count; i++)
+            {
+                
+                pop.Add(reverseList.Pop());
+            }
+            
+            {
+                return pop;
+            }
+        }
     }
 }
+
+
+
+
+

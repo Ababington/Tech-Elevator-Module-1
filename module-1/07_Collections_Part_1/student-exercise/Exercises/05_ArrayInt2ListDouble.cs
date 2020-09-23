@@ -16,8 +16,18 @@ namespace Exercises
          */
         public List<double> ArrayInt2ListDouble(int[] intArray)
         {
-            return null;
+            double convertArray = Convert.ToDouble(intArray);
+            double[] doubleTenet = new double[convertArray.Length];
+
+
+
+            for (int i = 0; i < intArray.Length; i++)
+            {
+                doubleTenet[i] = convertArray / 2;
+            }
+            return doubleTenet;
         }
 
     }
 }
+        

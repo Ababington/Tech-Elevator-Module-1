@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,8 +17,13 @@ namespace Exercises
          */
         public int FindLargest(List<int> integerList)
         {
-            return 0;
+            int maxValue = integerList.Max();
+            int maxIndex = integerList.ToList().IndexOf(maxValue);
+            {
+                return maxValue;
+            }
         }
-
     }
+
 }
+
