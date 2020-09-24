@@ -17,10 +17,10 @@ namespace Exercises
          */
         public int FindLargest(List<int> integerList)
         {
-            int maxValue = integerList.Max();
-            int maxIndex = integerList.ToList().IndexOf(maxValue);
+            int maxTenet = integerList.Max();
+           
             {
-                return maxValue;
+                return maxTenet;
             }
         }
     }

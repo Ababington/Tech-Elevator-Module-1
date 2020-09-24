@@ -16,9 +16,16 @@ namespace Exercises
          */
         public string[] List2Array(List<string> stringList)
         {
-            
-                return stringList.ToArray();
+            string[] tenet;
+            tenet = new string[stringList.Count];
+
+            for(int i = 0; i< stringList.Count; i++)
+            {
+                tenet[i] = stringList[i];
+            }
+                return tenet;
             }
         }
     }
+
 

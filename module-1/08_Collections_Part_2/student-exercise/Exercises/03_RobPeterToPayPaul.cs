@@ -18,9 +18,20 @@ namespace Exercises
          * RobPeterToPayPaul({"Peter": 2000, "Paul": 30000}) → {"Peter": 2000, "Paul": 30000}
          *
          */
+
+        //Given the Dictionary. Does Peter have more than 0 dollars, if so transfer half to Paul, but only if Paul as less then 10
         public Dictionary<string, int> RobPeterToPayPaul(Dictionary<string, int> peterPaul)
         {
-            return null;
+
+            if(peterPaul["Paul"] < 1000 && peterPaul["Peter"] > 0)
+            {
+                int tenet = peterPaul["Peter"] / 2;
+                int paul = peterPaul["Paul"];
+
+                peterPaul["Paul"] = tenet + peterPaul["Paul"];
+                peterPaul["Peter"] = tenet;
+            }
+            return peterPaul;
         }
     }
 }

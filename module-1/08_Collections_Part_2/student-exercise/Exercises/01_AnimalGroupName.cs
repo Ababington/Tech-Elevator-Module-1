@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -38,7 +39,30 @@ namespace Exercises
          */
         public string AnimalGroupName(string animalName)
         {
-            return null;
+            Dictionary<string, string> AnimalGroupName;
+            AnimalGroupName = new Dictionary<string, string>()
+            {
+                {"rhino", "Crash"},{"giraffe","Tower"},{"elephant","Herd"},
+                {"lion","Pride"},{"crow","Murder"},{"pigeon","Kit"},
+                {"flamingo","Pat"},{"deer","Herd"},{"dog","Pack"},
+                {"crocodile","Float"}
+            };
+            string animalString = "unknown";
+
+            if (animalName == null || animalName == "")
+            {
+                return animalString;
+            }
+            else
+
+            if (AnimalGroupName.ContainsKey(animalName.ToLower()))
+            {
+                animalString = AnimalGroupName[animalName.ToLower()];
+            }
+            return animalString;
         }
+
+            
+        
     }
 }
