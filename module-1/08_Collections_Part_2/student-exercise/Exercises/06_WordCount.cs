@@ -20,9 +20,29 @@ namespace Exercises
          * WordCount(["c", "b", "a"]) → {"b": 1, "c": 1, "a": 1}
          *
          */
+        // they give array (words)
+        // return Dictionry (make new dictionary)
+        // put in a key of each different string with the value the number of times that string appears
+        //
+        //
+        //
+        //
         public Dictionary<string, int> WordCount(string[] words)
         {
-            return null;
+            Dictionary<string, int> wordCount = new Dictionary<string, int>();
+
+            foreach (string timesWord in words)
+            {
+                if (wordCount.ContainsKey(timesWord))
+                {
+                    wordCount[timesWord] = wordCount[timesWord] + 1;
+                }
+                else
+                {
+                    wordCount[timesWord] = 1;
+                }
+            }
+            return wordCount;
         }
     }
 }

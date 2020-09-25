@@ -25,7 +25,21 @@ namespace Exercises
          */
         public Dictionary<string, int> Last2Revisited(string[] words)
         {
-            return null;
+            Dictionary<string, int> tenetX = new Dictionary<string, int>();
+
+            foreach (string word in words)
+            {
+                int numberOfTimesX = 0;
+                for (int i = 0; i < word.Length - 2; i++)
+                {
+                    if (word.Substring(i, 2) == word.Substring(word.Length - 2))
+                    {
+                        numberOfTimesX++;
+                    }
+                }
+                tenetX[word] = numberOfTimesX;
+            }
+            return tenetX;
         }
     }
 }

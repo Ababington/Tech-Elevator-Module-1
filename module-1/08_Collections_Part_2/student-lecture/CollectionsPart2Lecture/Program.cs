@@ -15,13 +15,8 @@ namespace CollectionsPart2Lecture
 			//         <key,   value>
 			Dictionary<string, string> firstNameToLastName;
 			firstNameToLastName = new Dictionary<string, string>();
-			Dictionary<int, string> steelerPlayers = new Dictionary<int, string>();
-			steelerPlayers[7] = "Ben Rothlessiburger";
-			steelerPlayers[19] = "JuJu Smith-Schuster";
+		
 
-			//This sytax: if the key doesnt exist, it will create it
-			// if the key does exist, it replaces the value
-			//....................<key,       value>
 			firstNameToLastName["August"] = "Babington";
 			firstNameToLastName["Beth"] = "Campbell";
 			firstNameToLastName["Jennifer"] = "O'Brian";

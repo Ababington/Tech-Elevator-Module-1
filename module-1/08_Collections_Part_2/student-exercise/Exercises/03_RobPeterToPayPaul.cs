@@ -23,6 +23,7 @@ namespace Exercises
         public Dictionary<string, int> RobPeterToPayPaul(Dictionary<string, int> peterPaul)
         {
 
+
             if(peterPaul["Paul"] < 1000 && peterPaul["Peter"] > 0)
             {
                 int tenet = peterPaul["Peter"] / 2;
