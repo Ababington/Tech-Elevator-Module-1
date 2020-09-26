@@ -24,7 +24,6 @@ namespace Exercises.Tests.Classes
             prop = FindPropertyByName(properties, "SubmitterName");
             PropertyValidator.ValidateReadWrite(prop, "SubmitterName", typeof(string));
 
-
             prop = FindPropertyByName(properties, "LetterGrade");
             PropertyValidator.ValidateReadOnly(prop, "LetterGrade", typeof(string));
 
