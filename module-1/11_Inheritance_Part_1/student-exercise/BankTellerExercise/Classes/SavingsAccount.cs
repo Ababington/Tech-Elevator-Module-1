@@ -25,7 +25,6 @@
                 {
                     base.Withdraw(2M);
                 }
-                        
             }
             return Balance;
         }
