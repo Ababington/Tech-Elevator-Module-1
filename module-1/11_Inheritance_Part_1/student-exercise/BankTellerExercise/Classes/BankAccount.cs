@@ -29,7 +29,6 @@ namespace BankTellerExercise.Classes
             }
         }
         public virtual decimal Withdraw(decimal amountToWithdraw) // Subtracts from current balance and returns new balance to Bank Account
-
         {
              Balance -= amountToWithdraw;
             {
