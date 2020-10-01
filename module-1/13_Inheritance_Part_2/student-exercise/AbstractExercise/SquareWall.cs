@@ -13,7 +13,6 @@ namespace AbstractExercise
         {
             SideLength = sideLength;
         }
-
         public override string ToString()
         {
             return Name + " " + "(" + (SideLength) + "x" + (SideLength) + ")" + " square";
