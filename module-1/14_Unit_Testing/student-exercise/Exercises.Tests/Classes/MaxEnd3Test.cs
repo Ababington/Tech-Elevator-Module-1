@@ -57,8 +57,6 @@ namespace Exercises.Tests.Classes
             // Assert
             CollectionAssert.AreEqual(expected, result);
 
-
-
         }
     }
 }

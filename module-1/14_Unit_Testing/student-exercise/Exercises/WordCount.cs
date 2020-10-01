@@ -35,7 +35,6 @@ namespace Exercises
                     output[word] = output[word] + 1;
                 }
             }
-
             return output;
         }
     }
