@@ -45,8 +45,6 @@ namespace Exercises.Tests.Classes
         [TestMethod]
         public void NonStartTestException()
         {
-
-
             // Arrange - 
             NonStart nonStart = new NonStart();
             string inputOne = "";

@@ -43,7 +43,6 @@ namespace Exercises.Tests.Classes
 
             Dictionary<string, int> actual2 = wordCount.GetCount(array2);
             CollectionAssert.AreEqual(expected2, actual2);
-
         }
     }
 }
