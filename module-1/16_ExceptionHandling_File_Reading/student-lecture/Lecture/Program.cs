@@ -11,9 +11,19 @@ namespace Lecture
     {
         static void Main(string[] args)
         {
-            //ReadingInFiles.ReadACharacterFile();
-            //ReadingCSVFiles.ReadFile();
-            //SummingUpNumbers.ReadFile();         
+            try
+            {
+                FileAndDirectories.UsingTheDirectoryClass();
+                FileAndDirectories.UsingTheFileClass();
+                ReadingInFiles.ReadACharacterFile();
+                //ReadingCSVFiles.ReadFile();
+                //SummingUpNumbers.ReadFile();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+           
         }
     }
 }

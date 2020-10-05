@@ -21,12 +21,17 @@ namespace ExceptionHandling
             */
             Console.WriteLine("The following cities: ");
             string[] cities = new string[] { "Pittsburgh", "Erie", "Cranberry" };
-            Console.WriteLine(cities[0]);
-            Console.WriteLine(cities[1]);
-            Console.WriteLine(cities[2]);
-            Console.WriteLine(cities[3]);  // This statement will throw an IndexOutOfRangeException
-            Console.WriteLine("are all in Pennsylvania."); // This line won't execute because the previous statement throws an Exception
-
+            try
+            {
+                Console.WriteLine(cities[0]);
+                Console.WriteLine(cities[1]);
+                Console.WriteLine(cities[2]);
+                Console.WriteLine(cities[3]);  // This statement will throw an IndexOutOfRangeException
+                Console.WriteLine("are all in Pennsylvania."); // This line won't execute because the previous statement throws an Exception
+            } catch(IndexOutOfRangeException e)
+            {
+                Console.WriteLine("Oops, something went wrong");
+            }
             Console.WriteLine();
 
 
@@ -34,10 +39,16 @@ namespace ExceptionHandling
             * try/catch blocks will also catch Exceptions that are 
             * thrown from method calls further down the stack 
             */
-            Console.WriteLine("Hey ya'll, watch this!");
-            DoSomethingDangerous();  // throws an ArrayIndexOutOfBoundsException
-            Console.WriteLine("See, I told you nothing would go wrong!");
 
+            try
+            {
+                Console.WriteLine("Hey ya'll, watch this!");
+                DoSomethingDangerous();  // throws an ArrayIndexOutOfBoundsException
+                Console.WriteLine("See, I told you nothing would go wrong!");
+            }catch(IndexOutOfRangeException e)
+            {
+                Console.WriteLine("Call the Darwin Awards...");
+            }
 
 
 
@@ -47,12 +58,17 @@ namespace ExceptionHandling
             * handle any Exception that matches the declared Exception type, including 
             * subclasses of the declared type
             */
-            Console.WriteLine("The standard work week is 40 hours.");
-            Console.WriteLine("How many hours did you work this week? >>> ");
-            int hoursWorked = int.Parse(Console.ReadLine());
-            int overtimeHours = hoursWorked - 40;
-            Console.WriteLine("You worked " + overtimeHours + " hours of overtime.");
-
+            try
+            {
+                Console.WriteLine("The standard work week is 40 hours.");
+                Console.WriteLine("How many hours did you work this week? >>> ");
+                int hoursWorked = int.Parse(Console.ReadLine());
+                int overtimeHours = hoursWorked - 40;
+                Console.WriteLine("You worked " + overtimeHours + " hours of overtime.");
+            } catch(Exception e)
+            {
+                Console.WriteLine("You did it wrong");
+            }
             Console.WriteLine();
 
 

@@ -42,6 +42,11 @@ namespace Lecture.Aids
             {
                 // Creating a directory
                 Directory.CreateDirectory(@"C:\TestDirectory");
+                Directory.CreateDirectory(@"C:\TestDirectory\SubDirectory");
+                for(int i = 0; i < 5; i++)
+                {
+                    Directory.CreateDirectory(@"C:\TestDirectory\SubDirectory\Test" +i);
+                }
 
                 // Getting a list of directories within a directory
                 // One could write a for-loop to print each directory out
