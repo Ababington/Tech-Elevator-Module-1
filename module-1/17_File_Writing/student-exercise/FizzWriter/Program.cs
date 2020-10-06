@@ -35,7 +35,6 @@ namespace FizzWriter
                         {
                             sw.WriteLine(i);
                         }
-
                     }
             }
             catch (Exception e)
