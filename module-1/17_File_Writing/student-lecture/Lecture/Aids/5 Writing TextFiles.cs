@@ -15,7 +15,25 @@ namespace Lecture.Aids
         public static void WritingAFile()
         {
 
+            string directory = Environment.CurrentDirectory;
+            string fileName = "output.txt";
+            string fullPath = Path.Combine(directory, fileName);
+            try
+            {
+                //create new stream writer
+                using (StreamWriter sw = new StreamWriter(fileName))
+                {
+                    sw.WriteLine(DateTime.UtcNow);
 
+                    sw.Write("Hello ");
+                    sw.Flush();
+                    sw.Write("World");
+                    sw.WriteLine("");
+                }
+            } catch
+            {
+
+            }
             // After the using statement ends, file has now been written
             // and closed for further writing
         }

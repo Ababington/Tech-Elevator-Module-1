@@ -19,7 +19,12 @@ namespace Exercises
          */
         public int[] BiggerTwo(int[] a, int[] b)
         {
-            return new int[] { };
+            int i = 0;
+            if(a[i] + a[1] < b[i] + b[1])
+            {
+                return b;
+            }
+            return a;
         }
     }
 }

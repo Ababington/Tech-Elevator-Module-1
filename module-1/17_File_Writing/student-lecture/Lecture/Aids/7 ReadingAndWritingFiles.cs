@@ -17,27 +17,34 @@ namespace Lecture.Aids
             string outputFile = "programminglanguages-FIXED.txt";
             string inputFullPath = Path.Combine(directory, inputFile);
             string outputFullPath = Path.Combine(directory, outputFile);
-
-            // Open the existing file with the typo using a StreamReader
-            using (StreamReader sr = new StreamReader(inputFullPath))
+            try
             {
-                // Open a StreamWriter where we will output the file
-                using (StreamWriter sw = new StreamWriter(outputFullPath, true))
+                // Open the existing file with the typo using a StreamReader
+                using (StreamReader sr = new StreamReader(inputFullPath))
                 {
-                    // For each line in the input file, read it in                    
-                    while (!sr.EndOfStream)
+                    // Open a StreamWriter where we will output the file
+                    using (StreamWriter sw = new StreamWriter(outputFullPath, true))
                     {
-                        // Read an individual line
-                        string line = sr.ReadLine();
+                        // For each line in the input file, read it in                    
+                        while (!sr.EndOfStream)
+                        {
+                            // Read an individual line
+                            string line = sr.ReadLine();
 
-                        // Replace the occurence of the word langauge with language
-                        string fixedLine = line.Replace("langauge", "language");
+                            // Replace the occurence of the word langauge with language
+                            string fixedLine = line.Replace("langauge", "language");
 
-                        // Write the new line to the output file
-                        sw.WriteLine(fixedLine);
+                            // Write the new line to the output file
+                            sw.WriteLine(fixedLine);
+                        }
                     }
                 }
+            }catch
+            {
+
             }
+
+        
         }
     }
 }

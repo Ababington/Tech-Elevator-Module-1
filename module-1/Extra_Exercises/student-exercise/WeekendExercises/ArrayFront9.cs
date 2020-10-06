@@ -16,6 +16,19 @@ namespace Exercises
         */
         public bool ArrayFront9(int[] nums)
         {
+            int tenet = nums.Length;
+            if(tenet>4)
+            {
+                tenet = 4;
+            }
+
+            for (int i = 0; i < tenet; i++)
+            {
+                if (nums[i] == 9)
+                {
+                    return true;
+                }
+            }
             return false;
         }
     }
