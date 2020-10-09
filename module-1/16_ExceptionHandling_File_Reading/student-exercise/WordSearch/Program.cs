@@ -10,15 +10,18 @@ namespace WordSearch
     {
         static void Main(string[] args)
         {
+
             Console.WriteLine("What is fully qualified name of the file that should be searched?");
             string filePath = Console.ReadLine();
+            // C:\Users\Student\workspace\augustbabington-c\module-1\16_ExceptionHandling_File_Reading\alices_adventures_in_wonderland.txt
 
             Console.WriteLine("What is the search word you are looking for?");
             string userInput = Console.ReadLine();
-           
-            Console.WriteLine("Should the search be case sensitive? (Y or N)");
-            string caseSensitive = Console.ReadLine();
 
+            Console.WriteLine("What should we replace that word with? ");
+            string userOutput = Console.ReadLine();
+
+            string outputFile = "word_replace.txt";
             bool fileExists = File.Exists(filePath);
 
             if (fileExists)
@@ -27,33 +30,32 @@ namespace WordSearch
                 {
                     using (StreamReader sr = new StreamReader(filePath))
                     {
-
-                        int number = 0;
-
-                        while (!sr.EndOfStream)
+                        using (StreamWriter sw = new StreamWriter(userOutput))
                         {
-                            number++;
+                            string outputFullPath = Path.Combine(filePath, outputFile);
 
-                            string line = sr.ReadLine();
-                            if (caseSensitive == "N")
+                            while (!sr.EndOfStream)
                             {
-                                if (line.Contains(userInput, StringComparison.InvariantCultureIgnoreCase))
-                                {
-                                    Console.WriteLine(number + ")" + " " + line);
-                                }
-                            }
-                            else if(line.Contains(userInput))
-                            {
-                                Console.WriteLine(number + ")" + " " + line);
+
+                                string line = sr.ReadLine();
+
+
+                                string fixedLine = line.Replace(userInput, userOutput);
+
+                                sw.WriteLine(fixedLine);
                             }
                         }
                     }
+
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine("Error, Try Again");
-                    Console.WriteLine(e.Message);
-                } 
+
+                }
+
+
+                //File.Copy(outputFullPath);
+
             }
         }
     }
