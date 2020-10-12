@@ -26,7 +26,9 @@ namespace TempConvert
                 case "F":
                     Console.WriteLine(tempNumber + "F " + "is " + (tempNumber - 32) / 1.8 + "C");
                     break;
+               
                 default:
+                    Console.WriteLine("Please enter valid Dollar amount");
                     break;
             }
             
