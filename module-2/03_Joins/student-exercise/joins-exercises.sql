@@ -3,41 +3,116 @@
 -- 1. All of the films that Nick Stallone has appeared in
 -- (30 rows)
 
+select title from film
+join film_actor on film.film_id = film_actor.film_id
+join actor on film_actor.actor_id = actor.actor_id
+where actor.first_name = 'Nick' and actor.last_name =  'Stallone'
+order by film.title
+
 -- 2. All of the films that Rita Reynolds has appeared in
 -- (20 rows)
 
+select title from film
+join film_actor on film.film_id = film_actor.film_id
+join actor on film_actor.actor_id = actor.actor_id
+where actor.first_name = 'Rita' and actor.last_name =  'Reynolds'
+order by film.title
+
 -- 3. All of the films that Judy Dean or River Dean have appeared in
 -- (46 rows)
+select title from film
+join film_actor on film.film_id = film_actor.film_id
+join actor on film_actor.actor_id = actor.actor_id
+where (actor.first_name = 'Judy' and actor.last_name =  'Dean') or (actor.first_name = 'River' and actor.last_name =  'Dean')
+order by film.title
 
 -- 4. All of the the ‘Documentary’ films
 -- (68 rows)
+select title,name from film
+join film_category as fc on fc.film_id = film.film_id
+join category on category.category_id = fc.category_id
+where category.name = 'Documentary'
+order by title
+
 
 -- 5. All of the ‘Comedy’ films
 -- (58 rows)
+select title,name from film
+join film_category as fc on fc.film_id = film.film_id
+join category on category.category_id = fc.category_id
+where category.name = 'Comedy'
+order by title
+
 
 -- 6. All of the ‘Children’ films that are rated ‘G’
 -- (10 rows)
+select title,name, rating from film
+join film_category as fc on fc.film_id = film.film_id
+join category on category.category_id = fc.category_id
+where category.name = 'Children' and rating = 'G'
+order by title
 
 -- 7. All of the ‘Family’ films that are rated ‘G’ and are less than 2 hours in length
 -- (3 rows)
 
+select title,name, rating, length from film
+join film_category as fc on fc.film_id = film.film_id
+join category on category.category_id = fc.category_id
+where category.name = 'Family' and rating = 'G' and length < 120
+order by title
+
 -- 8. All of the films featuring actor Matthew Leigh that are rated ‘G’
 -- (9 rows)
+
+select title from film
+join film_actor on film.film_id = film_actor.film_id
+join actor on film_actor.actor_id = actor.actor_id
+where actor.first_name = 'Matthew' and actor.last_name =  'Leigh' and rating = 'G'
+order by film.title
 
 -- 9. All of the ‘Sci-Fi’ films released in 2006
 -- (61 rows)
 
+select title,name, release_year from film
+join film_category as fc on fc.film_id = film.film_id
+join category on category.category_id = fc.category_id
+where category.name = 'Sci-Fi' and release_year = 2006
+order by title
+
+
 -- 10. All of the ‘Action’ films starring Nick Stallone
 -- (2 rows)
+select title from film
+join film_actor on film.film_id = film_actor.film_id
+join film_category as fc on fc.film_id = film.film_id
+join category on category.category_id = fc.category_id
+join actor on film_actor.actor_id = actor.actor_id
+where category.name = 'Action' and actor.first_name = 'Nick' and actor.last_name = 'Stallone'
+order by film.title
 
 -- 11. The address of all stores, including street address, city, district, and country
 -- (2 rows)
 
+select address.address, city.city, address.district, country.country from store
+join address on store.address_id = address.address_id
+join city on address.city_id = city.city_id
+join country on city.country_id = country.country_id
+
 -- 12. A list of all stores by ID, the store’s street address, and the name of the store’s manager
 -- (2 rows)
 
+select store.store_id, address.address, staff.first_name, staff.last_name from store
+join staff on store.store_id = staff.store_id
+join address on store.address_id = address.address_id
+order by store.store_id 
+
 -- 13. The first and last name of the top ten customers ranked by number of rentals 
 -- (#1 should be “ELEANOR HUNT” with 46 rentals, #10 should have 39 rentals)
+
+select top 10 customer.first_name, customer.last_name, count(*)as most_rentals from rental 
+join customer on rental.customer_id = customer.customer_id
+group by customer.first_name, customer.last_name
+order by most_rentals desc
 
 -- 14. The first and last name of the top ten customers ranked by dollars spent 
 -- (#1 should be “KARL SEAL” with 221.55 spent, #10 should be “ANA BRADLEY” with 174.66 spent)
