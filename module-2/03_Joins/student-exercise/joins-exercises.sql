@@ -126,14 +126,13 @@ order by dollars_spent desc
 -- (NOTE: Keep in mind that an employee may work at multiple stores.)
 -- (Store 1 has 7928 total rentals and Store 2 has 8121 total rentals)
 
-select store.store_id, address.address, count(rental.inventory_id)as most_rentals, sum(amount)as dollars_spent, avg(amount)as dollars_avg from store 
+select store.store_id, address.address, count(rental.inventory_id)as most_rentals, sum(payment.amount)as dollars_spent, avg(payment.amount)as dollars_avg from store 
 join address on store.address_id = address.address_id
-join payment on rental.customer_id = payment.rental_id
-join customer on store.store_id = customer.store_id
 join inventory on store.store_id = inventory.store_id
 join rental on inventory.inventory_id = rental.inventory_id
-
-
+join payment on rental.rental_id = payment.rental_id
+group by store.store_id, address.address
+order by store.store_id 
 
 -- 16. The top ten film titles by number of rentals
 -- (#1 should be “BUCKET BROTHERHOOD” with 34 rentals and #10 should have 31 rentals)
@@ -175,19 +174,19 @@ join film_actor on film.film_id = film_actor.film_id
 join actor on film_actor.actor_id = actor.actor_id
 join inventory on film.film_id = inventory.film_id
 join rental on inventory.inventory_id = rental.inventory_id
-group by actor.first_name,actor.last_name
+group by actor.actor_id, actor.first_name,actor.last_name
 order by mostrentals4 desc
 
 -- 20. The top 5 “Comedy” actors ranked by number of rentals of films in the “Comedy” category starring that actor 
 -- (#1 should have 87 rentals and #5 should have 72 rentals)
 
-select top 5 actor.first_name,actor.last_name, count(rental.inventory_id) as mostrentals5, title from film
-join film_actor on film.film_id = film_actor.film_id
-join actor on film_actor.actor_id = actor.actor_id
-join film_category as fc on fc.film_id = film.film_id
-join category on category.category_id = fc.category_id
-join inventory on film.film_id = inventory.film_id
-join rental on inventory.inventory_id = rental.inventory_id
+select top 5 count(rental.inventory_id) as mostrentals5, actor.first_name,actor.last_name from rental
+join inventory on inventory.inventory_id = rental.inventory_id
+join film on film.film_id = inventory.film_id
+join film_category on film_category.film_id = film.film_id
+join category on category.category_id = film_category.category_id
+join film_actor on film_actor.film_id = film.film_id
+join actor on actor.actor_id = film_actor.actor_id
 where category.name = 'Comedy'
-group by actor.first_name,actor.last_name
+group by actor.first_name,actor.last_name, actor.actor_id
 order by mostrentals5 desc
