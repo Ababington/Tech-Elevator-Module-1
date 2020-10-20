@@ -21,9 +21,11 @@ select * from film order by film_id desc
 -- overprotective mother, in the film, "Euclidean PI". Add them to the film.
 
 insert into film_actor (actor_id, film_id)
-values (201, 1002)
+values ((select film_id from film where title ='Euclidean PI'),
+(select actor_id from actor where first_name = 'Hampton' and last_name = 'Avenue' ))
 insert into film_actor (actor_id, film_id)
-values (202, 1002)
+values  ((select film_id from film where title ='Euclidean PI'),
+(select actor_id from actor where first_name = 'Lisa' and last_name = 'Byway' ));
 
 select * from film_actor order by film_id desc
 
@@ -37,17 +39,9 @@ select * from category
 -- 5. Assign the Mathmagical category to the following films, "Euclidean PI",
 -- "EGG IGBY", "KARATE MOON", "RANDOM GO", and "YOUNG LANGUAGE"
 
-select * from film where title in ('Euclidean PI', 'EGG IGBY', 'KARATE MOON', 'RANDOM GO', 'YOUNG LANGUAGE')
-insert into film_category 
-values (1002, 17)
-insert into film_category 
-values (274, 17)
-insert into film_category 
-values (494, 17)
-insert into film_category 
-values (714, 17)
-insert into film_category 
-values (996, 17)
+
+update film_category set category_id = (select category_id from category where name = 'Mathmagical')
+where film_id in (select film_id from film where title in ('Euclidean PI', 'EGG IGBY', 'KARATE MOON', 'RANDOM GO', 'YOUNG LANGUAGE'));
 
 select * from film_category
 order by category_id
@@ -56,58 +50,56 @@ order by category_id
 -- accordingly.
 -- (5 rows affected)
 
-select * from film where film_id in (274, 494, 714, 996, 1002)
-update film set rating = 'G' where film_id in (274, 494, 714, 996, 1002) 
+
+update film set rating = 'G' 
+where film_id in (select film_id from category where name = 'Mathmagical')
 
 -- 7. Add a copy of "Euclidean PI" to all the stores.
 
-select * from store
-insert into inventory 
-values(1002,1) 
-insert into inventory 
-values(1002,2) 
-select * from inventory where film_id in (1002) 
+
+insert into inventory(store_id, film_id) 
+select store_id,(select film_id from film where title = 'Euclidean PI') from store; 
+select * from inventory
+order by film_id desc
+
 
 -- 8. The Feds have stepped in and have impounded all copies of the pirated film,
 -- "Euclidean PI". The film has been seized from all stores, and needs to be
 -- deleted from the film table. Delete "Euclidean PI" from the film table.
 -- (Did it succeed? Why?)
 -- <YOUR ANSWER HERE>
-delete film where film_id = 1002
+delete film where title = 'Euclidean PI'
 --It fails because it has keys located in other tables as well.
 
 -- 9. Delete Mathmagical from the category table.
 -- (Did it succeed? Why?)
 -- <YOUR ANSWER HERE>
 
-select * from category where category_id = 17
-delete category where category_id = 17
+
+delete category where name = 'Mathmagical'
 -- It fails because it has keys in film_category as well
 
 -- 10. Delete all links to Mathmagical in the film_category tale.
 -- (Did it succeed? Why?)
 -- <YOUR ANSWER HERE>
 
-select * from film_category 
-select * from film_category where category_id = 17
-delete film_category where category_id = 17
---Yes, this succeeds because film_category was the last remaining key to hold category_id= 17 (Mathmagical)
+
+delete film_category where category_id in (select category_id from category where name ='Mathmagical');
+--Yes, this succeeds because film_category was the last remaining key to hold category_id of (Mathmagical)
 
 -- 11. Retry deleting Mathmagical from the category table, followed by retrying
 -- to delete "Euclidean PI".
 -- (Did either deletes succeed? Why?)
 -- <YOUR ANSWER HERE>
 
-select * from category where category_id = 17
-select * from category
-
-delete film where film_id = 1002
-select * from film where film_id = 1002
+delete from category where name = 'Euclidean PI'
 
 --This fails because 1002 is still in the film_actor table
 
 -- 12. Check database metadata to determine all constraints of the film id, and
 -- describe any remaining adjustments needed before the film "Euclidean PI" can
 -- be removed from the film table.
+select * from INFORMATION_SCHEMA.REFERENTIAL_CONSTRAINTS
+where CONSTRAINT_NAME like '%film%'
 
--- you would have to delete film_id 1002 from the film_actor table as well
+-- you would have to remove any area that references 'Euclidean PI' as its Parent from the film_actor & inventory table as well
