@@ -28,7 +28,7 @@ namespace ProjectOrganizer.DAL
 
             try
             {
-                using (SqlConnection connection = new SqlConnection())
+                using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();
                     SqlCommand command = new SqlCommand();
@@ -48,8 +48,6 @@ namespace ProjectOrganizer.DAL
 
                         output.Add(project);
                     }
-
-
                 }
             }
             catch (Exception e)
@@ -69,18 +67,17 @@ namespace ProjectOrganizer.DAL
         /// <returns>If it was successful.</returns>
         public bool AssignEmployeeToProject(int projectId, int employeeId)
         {
+            List<Project> projects = new List<Project>();
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();
-                    SqlCommand command = new SqlCommand();
-                    string sqlText = ($"insert into project_employee(project_id, employee_id) values (@projectId, @employeeId);");
-                    command.Parameters.AddWithValue("@projectId", "%" + projectId + "%");
-                    command.Parameters.AddWithValue("@employeeId", "%" + employeeId + "%");
-                    command.CommandText = sqlText;
-                    command.Connection = connection;
 
+                    SqlCommand command = new SqlCommand(@"insert into project_employee(project_id, employee_id) values (@projectId, @employeeId);", connection);
+                    command.Parameters.AddWithValue("@projectId", projectId);
+                    command.Parameters.AddWithValue("@employeeId", employeeId);
+                   
                     int rowsEffected = command.ExecuteNonQuery();
 
                     return (rowsEffected > 0);
@@ -107,8 +104,8 @@ namespace ProjectOrganizer.DAL
                     connection.Open();
                     SqlCommand command = new SqlCommand();
                     string sqlText = ($"delete from project_employee where project_id = {projectId} and employee_id = {employeeId};");
-                    command.Parameters.AddWithValue("@projectId", "%" + projectId + "%");
-                    command.Parameters.AddWithValue("@employeeId", "%" + employeeId + "%");
+                    command.Parameters.AddWithValue("@projectId", projectId);
+                    command.Parameters.AddWithValue("@employeeId", employeeId);
                     command.CommandText = sqlText;
                     command.Connection = connection;
 
@@ -121,40 +118,41 @@ namespace ProjectOrganizer.DAL
             {
                 throw new NotImplementedException();
             }
+        }
 
-            /// <summary>
-            /// Creates a new project.
-            /// </summary>
-            /// <param name="newProject">The new project object.</param>
-            /// <returns>The new id of the project.</returns>
-            public int CreateProject(Project newProject)
+        /// <summary>
+        /// Creates a new project.
+        /// </summary>
+        /// <param name="newProject">The new project object.</param>
+        /// <returns>The new id of the project.</returns>
+        public int CreateProject(Project newProject)
+        {
+            List<Department> output = new List<Department>();
+            try
             {
-                List<Department> output = new List<Department>();
-                try
+                using (SqlConnection connection = new SqlConnection(connectionString))
                 {
-                    using (SqlConnection connection = new SqlConnection(connectionString))
-                    {
-                        connection.Open();
-                        SqlCommand command = new SqlCommand();
-                        string sqlText = "insert into project (project_id, name, from_date, to_date) values (@project_id, @name, @fromDate, @toDate);";
+                    connection.Open();
+                    SqlCommand command = new SqlCommand();
+                    string sqlText = "insert into project (project_id, name, from_date, to_date) values (@project_id, @name, @fromDate, @toDate);";
 
-                        command.CommandText = sqlText;
-                        command.Connection = connection;
-                        command.Parameters.AddWithValue("@project_id", "%" + newProject.ProjectId + "%");
-                        command.Parameters.AddWithValue("@name", "%" + newProject.Name + "%");
-                        command.Parameters.AddWithValue("@fromDate", "%" + newProject.StartDate + "%");
-                        command.Parameters.AddWithValue("@toDate", "%" + newProject.EndDate + "%");
+                    command.CommandText = sqlText;
+                    command.Connection = connection;
+                    command.Parameters.AddWithValue("@project_id", newProject.ProjectId);
+                    command.Parameters.AddWithValue("@name", newProject.Name);
+                    command.Parameters.AddWithValue("@fromDate", newProject.StartDate);
+                    command.Parameters.AddWithValue("@toDate", newProject.EndDate);
 
 
-                        return newProject.ProjectId;
-                    }
+                    return newProject.ProjectId;
                 }
-                catch (Exception e)
-                {
-                    throw new NotImplementedException();
-                }
-
             }
+            catch (Exception e)
+            {
+                throw new NotImplementedException();
+            }
+
         }
     }
 }
+

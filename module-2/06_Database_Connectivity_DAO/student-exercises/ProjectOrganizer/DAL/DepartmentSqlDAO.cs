@@ -2,9 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ProjectOrganizer.DAL
 {
@@ -68,14 +65,15 @@ namespace ProjectOrganizer.DAL
                 {
                     connection.Open();
                     SqlCommand command = new SqlCommand();
-                    string sqlText = "insert into department (name) values (@departmentName);";
+                    string sqlText = "insert into department values (@name);select SCOPE_IDENTITY();";
 
                     command.CommandText = sqlText;
                     command.Connection = connection;
-                    command.Parameters.AddWithValue("@department_id", "%" + newDepartment.Id + "%");
+                    command.Parameters.AddWithValue("@name", newDepartment.Name);
 
-                  
-                    return newDepartment.Id; 
+                    int newDepartmentId = Convert.ToInt32(command.ExecuteScalar());
+
+                    return newDepartmentId; 
                 }
             }
             catch (Exception e)
