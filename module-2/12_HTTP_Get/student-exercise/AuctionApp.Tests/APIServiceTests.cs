@@ -7,7 +7,7 @@ namespace AuctionApp.Tests
     [TestClass]
     public class APIServiceTests
     {
-        APIService api = new APIService();
+        APIService api = new APIService("http://localhost:3000/auctions/");
 
         [TestMethod]
         public void GetAllAuctions_ExpectList()

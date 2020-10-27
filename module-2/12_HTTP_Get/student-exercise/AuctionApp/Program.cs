@@ -8,6 +8,7 @@ namespace AuctionApp
     {
         static void Main(string[] args)
         {
+            
             AuctionCLI auctionCLI = new AuctionCLI();
             auctionCLI.Run();
         }
