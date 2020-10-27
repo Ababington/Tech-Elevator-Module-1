@@ -4,6 +4,7 @@ using System.Text;
 
 namespace AuctionApp
 {
+
     public class AuctionCLI
     {
         public void Run()
@@ -14,7 +15,7 @@ namespace AuctionApp
 
         public void MenuSelection()
         {
-            APIService api = new APIService();
+            APIService api = new APIService("http://localhost:3000/auctions/");
             int menuSelection = -1;
             while (menuSelection != 0)
             {
