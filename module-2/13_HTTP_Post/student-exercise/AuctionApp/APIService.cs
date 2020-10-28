@@ -1,6 +1,7 @@
 ﻿using RestSharp;
 using System;
 using System.Collections.Generic;
+using System.Net.Http;
 using System.Text;
 
 namespace AuctionApp
@@ -95,21 +96,82 @@ namespace AuctionApp
             return null;
         }
 
-        public Auction AddAuction(Auction newAuction) {
-            // place code here
-            throw new NotImplementedException();
+        public Auction AddAuction(Auction newAuction)
+        {
+
+            RestRequest request = new RestRequest(API_URL + "auctions");
+            request.AddJsonBody(newAuction);
+            IRestResponse<Auction> response = client.Post<Auction>(request);
+            if (response.ResponseStatus != ResponseStatus.Completed)
+            {
+                Console.WriteLine("Error occurred - unable to reach server.");
+
+            }
+            else if (!response.IsSuccessful)
+            {
+                Console.WriteLine("Error occurred -- received non-success response: " + response.StatusCode);
+            }
+            else
+            {
+                return response.Data;
+            }
+            return null;
         }
 
         public Auction UpdateAuction(Auction auctionToUpdate)
         {
-            // place code here
-            throw new NotImplementedException();
+            RestRequest request = new RestRequest(API_URL + "auctions/" + auctionToUpdate.Id);
+
+            request.AddJsonBody(auctionToUpdate);
+
+            IRestResponse<Auction> response = client.Put<Auction>(request);
+            if (response.ResponseStatus != ResponseStatus.Completed)
+            {
+                Console.WriteLine("Error occurred - unable to reach server.");
+
+            }
+            else if (!response.IsSuccessful)
+            {
+                Console.WriteLine("Error occurred -- received non-success response: " + response.StatusCode);
+            }
+            else
+            {
+                return response.Data;
+            }
+            return null;
         }
 
         public bool DeleteAuction(int auctionId)
         {
-            // place code here
-            throw new NotImplementedException();
+            RestRequest request = new RestRequest(API_URL + "auctions/" + auctionId);
+
+            IRestResponse response = client.Delete(request);
+            if (!response.IsSuccessful)
+            {
+                Console.WriteLine("Error occurred - unable to reach server.");
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+
+        }
+        private bool CheckResponse(IRestResponse response)
+        {
+            if (response.ResponseStatus != ResponseStatus.Completed)
+            {
+
+                Console.WriteLine("Error occurred - unable to reach server.");
+                return false;
+
+            }
+            else if (!response.IsSuccessful)
+            {
+                Console.WriteLine("Error occurred -- received non-success response: " + response.StatusCode);
+                return false;
+            }
+            return true;
         }
     }
 }

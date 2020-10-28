@@ -47,7 +47,7 @@ namespace ProjectOrganizerTest
         {
             ProjectSqlDAO projectSqlDAO = new ProjectSqlDAO(connectionString);
             bool result = projectSqlDAO.RemoveEmployeeFromProject(2, 1);
-            Assert.AreEqual(false, result);
+            Assert.AreEqual(true, result);
         }
         [TestMethod]
 
@@ -55,7 +55,7 @@ namespace ProjectOrganizerTest
         {
             ProjectSqlDAO projectSqlDAO = new ProjectSqlDAO(connectionString);
             bool result = projectSqlDAO.RemoveEmployeeFromProject(1, 1);
-            Assert.AreEqual(false, result);
+            Assert.AreEqual(true, result);
         }
         [TestMethod]
 
@@ -64,10 +64,10 @@ namespace ProjectOrganizerTest
         {
             ProjectSqlDAO projectSqlDAO = new ProjectSqlDAO(connectionString);
             Project project = new Project();
-            project.Name = "test";
+            project.Name = "test1";
             project.StartDate = DateTime.Parse("2010-03-19");
             project.EndDate = DateTime.Parse("2011-03-19");
-            Assert.AreEqual("test", project.Name);
+            Assert.AreEqual("test1", project.Name);
         }
     }
 }
