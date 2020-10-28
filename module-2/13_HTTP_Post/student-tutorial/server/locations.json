@@ -47,6 +47,15 @@
       "city": "Philadelphia",
       "state": "PA",
       "zip": "19103"
+    },
+    {
+      "Id": 7,
+      "Name": "new location",
+      "Address": "742 Evergreen Terrace",
+      "City": "Springfield",
+      "State": "OR",
+      "Zip": "12345",
+      "IsValid": true
     }
   ]
 }
