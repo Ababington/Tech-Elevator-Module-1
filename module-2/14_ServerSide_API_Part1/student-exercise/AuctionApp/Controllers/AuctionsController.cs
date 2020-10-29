@@ -28,15 +28,15 @@ namespace AuctionApp.Controllers
 
         public List<Auction> ListAuctions(string title_like = "", double currentBid_lte = 0)
         {
-            if (title_like != "" && currentBid_lte != 0)
+            if (title_like != "" && currentBid_lte > 0)
             {
                 return dao.SearchByTitleAndPrice(title_like, currentBid_lte);
             }
-            if (title_like != "")
+            else if (title_like != "")
             {
                 return dao.SearchByTitle(title_like);
             }
-            if (currentBid_lte != 0)
+            else if (currentBid_lte > 0)
             {
                 return dao.SearchByPrice(currentBid_lte);
             }
