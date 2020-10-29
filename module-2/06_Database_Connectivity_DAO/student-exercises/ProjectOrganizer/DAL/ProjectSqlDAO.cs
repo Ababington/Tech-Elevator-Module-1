@@ -77,7 +77,7 @@ namespace ProjectOrganizer.DAL
                     SqlCommand command = new SqlCommand(@"insert into project_employee(project_id, employee_id) values (@projectId, @employeeId);", connection);
                     command.Parameters.AddWithValue("@projectId", projectId);
                     command.Parameters.AddWithValue("@employeeId", employeeId);
-                   
+
                     int rowsEffected = command.ExecuteNonQuery();
 
                     return (rowsEffected > 0);
@@ -127,31 +127,26 @@ namespace ProjectOrganizer.DAL
         /// <returns>The new id of the project.</returns>
         public int CreateProject(Project newProject)
         {
-            List<Department> output = new List<Department>();
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();
-                    SqlCommand command = new SqlCommand();
-                    string sqlText = "insert into project (project_id, name, from_date, to_date) values (@project_id, @name, @fromDate, @toDate);";
-
-                    command.CommandText = sqlText;
-                    command.Connection = connection;
-                    command.Parameters.AddWithValue("@project_id", newProject.ProjectId);
+                    
+                    string sqlText = "insert into project ( name, from_date, to_date) values ( @name, @fromDate, @toDate); select SCOPE_IDENTITY();";
+                    SqlCommand command = new SqlCommand(sqlText, connection);
+                  
                     command.Parameters.AddWithValue("@name", newProject.Name);
                     command.Parameters.AddWithValue("@fromDate", newProject.StartDate);
                     command.Parameters.AddWithValue("@toDate", newProject.EndDate);
-
-
-                    return newProject.ProjectId;
+                    int newProjectId = Convert.ToInt32(command.ExecuteScalar());
+                    return newProjectId;
                 }
             }
             catch (Exception e)
             {
                 throw new NotImplementedException();
             }
-
         }
     }
 }

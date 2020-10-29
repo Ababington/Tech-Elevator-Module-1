@@ -1,6 +1,7 @@
 ﻿using RestSharp;
 using System;
 using System.Collections.Generic;
+using System.Net.Http;
 
 namespace HTTP_Web_Services_POST_PUT_DELETE_lecture
 {
@@ -79,17 +80,90 @@ namespace HTTP_Web_Services_POST_PUT_DELETE_lecture
 
         public Reservation AddReservation(Reservation newReservation)
         {
-            throw new NotImplementedException();
+            RestRequest request = new RestRequest(API_URL + "reservations");
+            request.AddJsonBody(newReservation);
+            IRestResponse<Reservation> response = client.Post<Reservation>(request);
+            if (response.ResponseStatus != ResponseStatus.Completed)
+            {
+                //bad idea to have consol.writleine outside of the UI class
+                //but simple for demonstration.
+                //normally you should throw an Exception
+                Console.WriteLine("Error occured - unable to reach server.");
+                //throw new HttpRequestException();
+            }
+
+            else if (!response.IsSuccessful)
+            {
+                Console.WriteLine("Error occured - unable to reach server.");
+            }
+            else
+            {
+
+                return response.Data;
+            }
+            return null;
         }
+
+
 
         public Reservation UpdateReservation(Reservation reservationToUpdate)
         {
-            throw new NotImplementedException();
+            RestRequest request = new RestRequest(API_URL + "reservations/" + reservationToUpdate.Id);
+            //check if valid data
+            if (reservationToUpdate.IsValid && reservationToUpdate.Id > 0)
+            {
+                request.AddJsonBody(reservationToUpdate);
+            }
+            else
+            {
+                throw new HttpRequestException();
+            }
+            IRestResponse<Reservation> response = client.Put<Reservation>(request);
+            //check for good response
+            if (CheckResponse(response))
+            {
+                return response.Data;
+            }
+            else
+            {
+                return null;
+            }
+
         }
 
         public void DeleteReservation(int reservationId)
         {
-            throw new NotImplementedException();
+            RestRequest request = new RestRequest(API_URL + "reservations/" + reservationId);
+            IRestResponse response = client.Delete(request);
+            if (CheckResponse(response))
+            {
+                Console.WriteLine("Reservation successfully deleted");
+            }
+            else
+            {
+                throw new HttpRequestException();
+            }
+        }
+        private bool CheckResponse(IRestResponse response)
+        {
+            if (response.ResponseStatus != ResponseStatus.Completed)
+            {
+                //bad idea to have consol.writleine outside of the UI class
+                //but simple for demonstration.
+                //normally you should throw an Exception
+                Console.WriteLine("Error occured - unable to reach server.");
+                return false;
+                //throw new HttpRequestException();
+            }
+
+            else if (!response.IsSuccessful)
+            {
+                Console.WriteLine("Error occured - unable to reach server.");
+                return false;
+            }
+
+            return true;
+
         }
     }
 }
