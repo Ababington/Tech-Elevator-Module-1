@@ -9,6 +9,7 @@ namespace AuctionApp.Controllers
     [ApiController]
     public class AuctionsController : ControllerBase
     {
+       
         private readonly IAuctionDao dao;
 
         public AuctionsController(IAuctionDao auctionDao = null)
@@ -21,6 +22,45 @@ namespace AuctionApp.Controllers
             {
                 dao = auctionDao;
             }
+        }
+
+        [HttpGet]
+
+        public List<Auction> ListAuctions(string title_like = "", double currentBid_lte = 0)
+        {
+            if (title_like != "" && currentBid_lte > 0)
+            {
+                return dao.SearchByTitleAndPrice(title_like, currentBid_lte);
+            }
+            else if (title_like != "")
+            {
+                return dao.SearchByTitle(title_like);
+            }
+            else if (currentBid_lte > 0)
+            {
+                return dao.SearchByPrice(currentBid_lte);
+            }
+                return dao.List();
+            
+        }
+        [HttpGet("{id}")]
+        public Auction GetAuctions(int id)
+        {
+            Auction auction = dao.Get(id);
+
+            if (auction != null)
+            {
+                return auction;
+            }
+
+            return null;
+        }
+
+        [HttpPost]
+        public Auction AddReservation(Auction auction)
+        {
+            Auction output = dao.Create(auction);
+            return output;
         }
     }
 }
