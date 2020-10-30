@@ -60,7 +60,7 @@ namespace AuctionApp.Controllers
         public ActionResult<Auction> UpdateAuction(int id, Auction auction)
         {
             Auction existingAuction = dao.Get(id);
-            if (auction.Title == "")
+            if (auction.Id == null)
             {
                 return BadRequest();
             }
