@@ -16,9 +16,14 @@ namespace Locations
         public List<Location> GetAllLocations()
         {
             RestClient client = new RestClient();
+            if (!string.IsNullOrWhiteSpace(user.Token))
+            {
+                JwtAuthenticator jwt = new JwtAuthenticator(user.Token);
+                client.Authenticator = jwt;
+            }
             RestRequest request = new RestRequest(API_URL);
             IRestResponse<List<Location>> response = client.Get<List<Location>>(request);
-
+            
             if (response.ResponseStatus != ResponseStatus.Completed)
             {
                 //response not received
@@ -148,17 +153,25 @@ namespace Locations
             request.AddJsonBody(credentials);
             IRestResponse<API_User> response = client.Post<API_User>(request);
 
-            if (response.ResponseStatus != ResponseStatus.Completed) {
+            if (response.ResponseStatus != ResponseStatus.Completed)
+            {
                 Console.WriteLine("An error occurred communicating with the server.");
                 return false;
-            } else if (!response.IsSuccessful) {
-                if (!string.IsNullOrWhiteSpace(response.Data.Message)) {
+            }
+            else if (!response.IsSuccessful)
+            {
+                if (!string.IsNullOrWhiteSpace(response.Data.Message))
+                {
                     Console.WriteLine("An error message was received: " + response.Data.Message);
-                } else {
+                }
+                else
+                {
                     Console.WriteLine("An error response was received from the server. The status code is " + (int)response.StatusCode);
                 }
                 return false;
-            } else {
+            }
+            else
+            {
                 user.Token = response.Data.Token;
 
                 return true;

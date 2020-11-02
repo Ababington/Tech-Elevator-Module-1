@@ -2,6 +2,7 @@
 using RestSharp.Authenticators;
 using System;
 using System.Collections.Generic;
+using System.Net;
 
 namespace AuctionApp
 {
@@ -11,6 +12,7 @@ namespace AuctionApp
         private readonly static string AUCTIONS_URL = API_BASE_URL + "auctions";
         private readonly IRestClient client;
         private static API_User user = new API_User();
+        private static RestClient authClient = new RestClient();
 
         public bool LoggedIn { get { return !string.IsNullOrWhiteSpace(user.Token); } }
 
@@ -31,7 +33,7 @@ namespace AuctionApp
         public List<Auction> GetAllAuctions()
         {
             RestRequest request = new RestRequest(AUCTIONS_URL);
-            IRestResponse<List<Auction>> response = client.Get<List<Auction>>(request);
+            IRestResponse<List<Auction>> response = authClient.Get<List<Auction>>(request);
 
             if (response.ResponseStatus != ResponseStatus.Completed || !response.IsSuccessful)
             {
@@ -47,7 +49,7 @@ namespace AuctionApp
         public Auction GetDetailsForAuction(int auctionId)
         {
             RestRequest requestOne = new RestRequest(AUCTIONS_URL + "/" + auctionId);
-            IRestResponse<Auction> response = client.Get<Auction>(requestOne);
+            IRestResponse<Auction> response = authClient.Get<Auction>(requestOne);
 
             if (response.ResponseStatus != ResponseStatus.Completed || !response.IsSuccessful)
             {
@@ -96,7 +98,7 @@ namespace AuctionApp
         {
             RestRequest request = new RestRequest(AUCTIONS_URL);
             request.AddJsonBody(newAuction);
-            IRestResponse<Auction> response = client.Post<Auction>(request);
+            IRestResponse<Auction> response = authClient.Post<Auction>(request);
 
             if (response.ResponseStatus != ResponseStatus.Completed || !response.IsSuccessful)
             {
@@ -113,7 +115,7 @@ namespace AuctionApp
         {
             RestRequest request = new RestRequest(AUCTIONS_URL + "/" + auctionToUpdate.Id);
             request.AddJsonBody(auctionToUpdate);
-            IRestResponse<Auction> response = client.Put<Auction>(request);
+            IRestResponse<Auction> response = authClient.Put<Auction>(request);
 
             if (response.ResponseStatus != ResponseStatus.Completed || !response.IsSuccessful)
             {
@@ -129,7 +131,7 @@ namespace AuctionApp
         public void DeleteAuction(int auctionId)
         {
             RestRequest request = new RestRequest(AUCTIONS_URL + "/" + auctionId);
-            IRestResponse response = client.Delete(request);
+            IRestResponse response = authClient.Delete(request);
 
             if (response.ResponseStatus != ResponseStatus.Completed || !response.IsSuccessful)
             {
@@ -147,18 +149,29 @@ namespace AuctionApp
             {
                 return "Error occurred - unable to reach server.";
             }
+
             else if (!response.IsSuccessful)
             {
+                if (response.StatusCode.Equals(HttpStatusCode.Unauthorized))
+                {
+                    return UNAUTHORIZED_MSG;
+                }
+                else if (response.StatusCode.Equals(HttpStatusCode.Forbidden))
+                {
+                    return FORBIDDEN_MSG;
+                }
                 return OTHER_4XX_MSG + (int)response.StatusCode;
             }
+
             return "";
         }
 
         public API_User Login(string submittedName, string submittedPass)
         {
-
-
-            IRestResponse<API_User> response = null;
+            var credentials = new { username = submittedName, password = submittedPass };
+            RestRequest request = new RestRequest(API_BASE_URL + "login");
+            request.AddJsonBody(credentials);
+            IRestResponse<API_User> response = client.Post<API_User>(request);
 
             if (response.ResponseStatus != ResponseStatus.Completed)
             {
@@ -180,11 +193,9 @@ namespace AuctionApp
             else
             {
                 user.Token = response.Data.Token;
-
                 return response.Data;
             }
         }
-
         public void Logout()
         {
             user = new API_User();
