@@ -53,7 +53,7 @@ namespace AuctionApp.Controllers
                 return BadRequest();
             }
             Auction added = dao.Create(auction);
-            return Created($"/reservations/{added.Id}", added);
+            return Created($"/auctions/{added.Title}", added);
         }
 
         [HttpPut("{id}")]
