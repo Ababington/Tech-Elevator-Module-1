@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Remoting.Messaging;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -15,9 +16,21 @@ namespace Exercises
          noTriples([1, 1, 2, 2, 2, 1]) → false
          noTriples([1, 1, 1, 2, 2, 2, 1]) → false
          */
-        public bool NoTriples(int[] nums)
+        public bool NoTriples(int[] a)
         {
-            return false;
+            for (int i = 0; i < a.Length - 1; i++)
+            {
+                if (a.Length >= 3)
+                {
+                    if (a[i] == a[i + 1] && a[i] == a[i + 2])
+                    {
+                        return false;
+                    }
+                }
+              
+            }
+            return true;
         }
     }
 }
+

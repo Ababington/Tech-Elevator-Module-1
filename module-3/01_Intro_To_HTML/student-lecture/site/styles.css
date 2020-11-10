@@ -1,0 +1,15 @@
+img {
+    height: 200px;
+    min-width: 100px;
+    }
+body {
+        font-family: Arial, Helvetica, sans-serif;
+    }
+h1{
+        font-size: 64px;
+        color: plum;
+    }
+
+header{
+        color:rgb(85, 58, 85);
+    }

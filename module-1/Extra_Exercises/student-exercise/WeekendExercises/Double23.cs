@@ -28,7 +28,6 @@ namespace Exercises
 
                 if (nums[i] == 3)
                     counter3++;
-                
             }
             return counter2 == 2 || counter3 == 2;
         }

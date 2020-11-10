@@ -19,7 +19,13 @@ namespace Exercises
          */
         public int[] FizzArray(int n)
         {
-            return new int[] { };
+            int[] tenet = new int[n];
+            for(int i = 0; i < n; i++)
+            {
+                tenet[i] == i;
+            }
+
+            return tenet;
         }
     }
 }
