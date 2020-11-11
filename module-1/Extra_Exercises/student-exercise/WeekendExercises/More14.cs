@@ -16,9 +16,27 @@ namespace Exercises
          */
         public bool More14(int[] nums)
         {
-            return false;
+            int one = 0;
+            int four = 0;
+            for (int i = 0; i < nums.Length; i++)
+            {
+                if (nums[i] == 1)
+                {
+                    one++;
+                }
+                if (nums[i] == 4)
+                {
+                    four++;
+                }
+            }
+            if (one > four)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
-
-
     }
 }

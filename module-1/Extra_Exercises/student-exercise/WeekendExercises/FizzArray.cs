@@ -22,9 +22,8 @@ namespace Exercises
             int[] tenet = new int[n];
             for(int i = 0; i < n; i++)
             {
-                tenet[i] == i;
+                tenet[i] = i;
             }
-
             return tenet;
         }
     }
