@@ -17,11 +17,11 @@ namespace Exercises
          */
         public int[] SwapEnds(int[] nums)
         {
-            int arrayOne = nums[0];
-            int arrayTwo = nums[nums.Length - 1];
+            int arrayFirst = nums[0];
+            int arrayLast = nums[nums.Length - 1];
 
-            nums[0] = arrayTwo;
-            nums[nums.Length - 1] = arrayOne;
+            nums[0] = arrayLast;
+            nums[nums.Length - 1] = arrayFirst;
 
             return nums;
         }

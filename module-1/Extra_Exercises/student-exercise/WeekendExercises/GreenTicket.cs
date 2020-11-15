@@ -18,21 +18,24 @@ namespace Exercises
          */
         public int GreenTicket(int a, int b, int c)
         {
-            int tenet = 0;
+            int result = 0;
 
-            if(a != b && a != c && b != c)
+            if (a != b && a != c && b != c) //all different numbers
             {
-                tenet = 0;
+                result = 0;
             }
-            else if(a == b && c == a)
+            else if (a == b && a == c) // all same numbers
             {
-                tenet = 20;
+                result = 20;
             }
-            else if(a == b && b!=c ||  a!=c)
+            else if ((a == b && a != c) || (b == c && b != a) || (c == a && c != b))
             {
-                tenet = 10;
+                result = 10;
             }
-            return tenet;
+
+
+
+            return result;
         }
     }
 }
