@@ -180,16 +180,7 @@ function fizzBuzz(tenet)
 */
 function filterEvens(array)
 {
-	let tenet = [];
-
-	for(let i = 0; i < array.length; i++)
-	{
-		if(array[i] % 1 != 0)
-		{
-			const tenetEven = array[i];
-			 tenet.push(tenetEven);
-		}
-	}
+	let tenet = array.filter(nums => {return nums % 2 == 0;});
 	return tenet;
 }
 /*
