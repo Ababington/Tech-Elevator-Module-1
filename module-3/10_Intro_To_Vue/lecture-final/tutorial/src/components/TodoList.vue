@@ -1,80 +1,93 @@
 <template>
-  <div class="todo-list">
-      <input type="text" v-model.lazy="todoTitle"></input>
-      <input type="checkbox" name="permissions" value="w" v-model="permissions">
-        <input type="checkbox" name="permissions" value="x" v-model="permissions">
-        <input type="checkbox" name="permissions" value="d" v-model="permissions"><br/>
-        <input type="checkbox" name="friday" value="d" v-model="isFriday"><br/>
-        <input type="checkbox" name="monday" value="d" v-model="isMonday">
-    <h1 v-if="isFriday">Happy Friday</h1>
-    <h1 v-show="isMonday">Bummer, it's Monday</h1>
-    <h1>{{todoTitle}}</h1>
-    <ul>
-        <li v-for="todo in todosArray" v-bind:key="todo.name">{{todo.name}}</li>
-    </ul>
-</div>
+  <table id="tblUsers">
+    <thead>
+    <tr>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Username</th>
+        <th>Email Address</th>
+        <th>Status</th>
+    </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><input v-model="filter.firstName" type="text" id="firstNameFilter"/></td>
+        <td><input v-model="filter.lastName" type="text" id="lastNameFilter"/></td>
+        <td><input v-model="filter.username" type="text" id="usernameFilter"/></td>
+        <td><input v-model="filter.emailAddress" type="text" id="emailFilter"/></td>
+        <td>
+          <select v-model="filter.status" id="statusFilter">
+            <option value="">Show All</option>
+            <option value="Active">Active</option>
+            <option value="Disabled">Disabled</option>
+            <td><input v-model="filter.status" type="text"/></td>
+          </select>
+        </td>
+      </tr>
+      <!-- user listing goes here -->
+      <tr v-for="user in filteredList"
+      v-bind:key="user.username"
+      v-bind:class="{disabled: user.status === 'Disabled'}"
+      >
+      <td>{{user.firstName}}</td>
+      <td>{{user.lastName}}</td>
+      <td>{{user.username}}</td>
+      <td>{{user.emailAddress}}</td>
+      <td>{{user.status}}</td>
+        </tr>
+    </tbody>
+  </table>
 </template>
 
 <script>
 export default {
-    data() {
-        return {
-            isMonday: false,
-            isFriday: false,
-            todoTitle: 'My Morning Routine',
-            permissions:[],
-            todosArray: [
-                {
-                name: 'Wake up'
-                },
-                {
-                name: '5 Minute Morning Movement'
-                },
-                {
-                name: 'Meditate'
-                },
-                {
-                name: 'Brush Teeth'
-                },
-                {
-                name: 'Shower'
-                }       
-            ]
-        }
+  name: 'user-list',
+  data() {
+    return {
+      filter: {
+        firstName:"",
+        lastName:"",
+        username:"",
+        emailAddress:"",
+        status:""
+      },
+      users: [
+        { firstName: 'John', lastName: 'Smith', username: 'jsmith', emailAddress: 'jsmith@gmail.com', status: 'Active' },
+        { firstName: 'Anna', lastName: 'Bell', username: 'abell', emailAddress: 'abell@yahoo.com', status: 'Active' },
+        { firstName: 'George', lastName: 'Best', username: 'gbest', emailAddress: 'gbest@gmail.com', status: 'Disabled' },
+        { firstName: 'Ben', lastName: 'Carter', username: 'bcarter', emailAddress: 'bcarter@gmail.com', status: 'Active' },
+        { firstName: 'Katie', lastName: 'Jackson', username: 'kjackson', emailAddress: 'kjackson@yahoo.com', status: 'Active' },
+        { firstName: 'Mark', lastName: 'Smith', username: 'msmith', emailAddress: 'msmith@foo.com', status: 'Disabled' }
+      ]
     }
+  },
+  computed:{
+    filteredList(){
+      return this.users.filter(user => user.firstName.toLowerCase().includes(this.filter.firstName) &&
+      user.lastName.toLowerCase().includes(this.filter.lastName) &&
+      user.username.includes(this.filter.username) &&
+      user.emailAddress.includes(this.filter.emailAddress) &&
+      user.status.includes(this.filter.status))
+    }
+  }
 }
 </script>
 
-<style>
-.todo-list {
-    width:450px;
-    background: #fff;
-    margin: 50px auto;
-    font-family: 'Roboto Condensed', sans-serif;
-    border-radius: 10px;
+<style scoped>
+table {
+  margin-top: 20px;
+  font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif
 }
-h1 {
-    background:#f2f2f2;
-    color:#4b86A6;
-    padding:10px;
-    font-size:24px;
-    text-transform: uppercase;
-    text-align: center;
-    margin-bottom: 0px;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
+th {
+  text-transform: uppercase
 }
-ul {
-    list-style-type: none;
-    margin:0px;
-    padding:0px;
+td {
+  padding: 10px;
 }
-li {
-    font-size: 24px;
-    border-bottom:1px solid #f2f2f2;
-    padding:10px 20px;
+tr.disabled {
+  color: red;
 }
-li:last-child{
-    border:0px;
+input, select {
+  font-size: 16px;
 }
 </style>

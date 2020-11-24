@@ -11,19 +11,30 @@
     </thead>
     <tbody>
       <tr>
-        <td><input type="text" id="firstNameFilter"/></td>
-        <td><input type="text" id="lastNameFilter"/></td>
-        <td><input type="text" id="usernameFilter"/></td>
-        <td><input type="text" id="emailFilter"/></td>
+        <td><input v-model="filter.firstName" type="text" id="firstNameFilter"/></td>
+        <td><input v-model="filter.lastName" type="text" id="lastNameFilter"/></td>
+        <td><input v-model="filter.username" type="text" id="usernameFilter"/></td>
+        <td><input v-model="filter.emailAddress" type="text" id="emailFilter"/></td>
         <td>
-          <select id="statusFilter">
+          <select v-model="filter.status" id="statusFilter">
             <option value="">Show All</option>
             <option value="Active">Active</option>
             <option value="Disabled">Disabled</option>
+            <td><input v-model="filter.status" type="text"/></td>
           </select>
         </td>
       </tr>
       <!-- user listing goes here -->
+      <tr v-for="user in filteredList"
+      v-bind:key="user.username"
+      v-bind:class="{disabled: user.status === 'Disabled'}"
+      >
+      <td>{{user.firstName}}</td>
+      <td>{{user.lastName}}</td>
+      <td>{{user.username}}</td>
+      <td>{{user.emailAddress}}</td>
+      <td>{{user.status}}</td>
+        </tr>
     </tbody>
   </table>
 </template>
@@ -33,6 +44,13 @@ export default {
   name: 'user-list',
   data() {
     return {
+      filter: {
+        firstName:"",
+        lastName:"",
+        username:"",
+        emailAddress:"",
+        status:""
+      },
       users: [
         { firstName: 'John', lastName: 'Smith', username: 'jsmith', emailAddress: 'jsmith@gmail.com', status: 'Active' },
         { firstName: 'Anna', lastName: 'Bell', username: 'abell', emailAddress: 'abell@yahoo.com', status: 'Active' },
@@ -41,6 +59,15 @@ export default {
         { firstName: 'Katie', lastName: 'Jackson', username: 'kjackson', emailAddress: 'kjackson@yahoo.com', status: 'Active' },
         { firstName: 'Mark', lastName: 'Smith', username: 'msmith', emailAddress: 'msmith@foo.com', status: 'Disabled' }
       ]
+    }
+  },
+  computed:{
+    filteredList(){
+      return this.users.filter(user => user.firstName.toLowerCase().includes(this.filter.firstName) &&
+      user.lastName.toLowerCase().includes(this.filter.lastName) &&
+      user.username.includes(this.filter.username) &&
+      user.emailAddress.includes(this.filter.emailAddress) &&
+      user.status.includes(this.filter.status))
     }
   }
 }
