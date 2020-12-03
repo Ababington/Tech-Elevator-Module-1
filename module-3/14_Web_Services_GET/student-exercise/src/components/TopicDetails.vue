@@ -1,4 +1,4 @@
-<template>
+  <template>
   <div class="topic-details">
     <h1>{{ topic.title }}</h1>
     <div v-for="message in topic.messages" v-bind:key="message.id" class="topic-message bubble">
