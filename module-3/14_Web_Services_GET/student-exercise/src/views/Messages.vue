@@ -1,4 +1,4 @@
-  <template>
+<template>
   <div class="messages">
     <topic-details v-bind:topic-id="$route.params.id" />
     <topic-list/>
